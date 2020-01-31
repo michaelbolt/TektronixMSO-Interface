@@ -13,15 +13,30 @@ while keepGoing:
     #accept connection
     conn, addr = s.accept()
     print("\nConnected by ",addr)
-    #emulate until client closes connection
+    #emulation loop
     while True:
-        data = conn.recv(1024)
-        if data == b'':
+        #wait for command or closed connection
+        cmd = conn.recv(1024)
+        if cmd == b'':
             break
-        data_str = data.decode('ascii')
-        #if query received, echo query for testing
-        if data_str.endswith('?'):
-            conn.send(bytes('Received: "' + data_str + '"','ascii'))
+        #split commands into list
+        cmd_str = cmd.decode('ascii')
+        cmd_list = cmd_str.split(';')
+        #create list of responses to commands
+        response_list = []
+        for c in cmd_list:
+            print(c)
+            if '?' in c:
+                response_list.append('4000')
+        #create response string if any to send
+        if response_list:
+            response_str = ''
+            for r in response_list:
+                response_str += r + ';'
+            #remove the final ';'
+            response_str = response_str[:-1]
+            #send response
+            conn.send(bytes(response_str,'ascii'))
     #close connected socket once client closes
     conn.close()
     #prompt to keep going
