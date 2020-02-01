@@ -12,7 +12,7 @@ keepGoing = True
 while keepGoing:
     #accept connection
     conn, addr = s.accept()
-    print("\nConnected by ",addr)
+    print("Connected by ",addr)
     #emulation loop
     while True:
         #wait for command or closed connection

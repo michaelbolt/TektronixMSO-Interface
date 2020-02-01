@@ -1,0 +1,7 @@
+#This is a sample script
+#Read Meas1 for Mean, Std Dev, Population
+MEASUREMENT:MEAS1:RESULTS:ALLACQS:MEAN?;STDDEV?;:MEASUREMENT:MEAS1:POPULATION:LIMIT:VALUE?
+PAUSE
+#Reset Meas1 statistics by changing the Population limit
+measurement:meas1:population:limit:value 100;
+measurement:meas1:population:limit:value 1000;
